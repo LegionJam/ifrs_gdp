@@ -1,42 +1,40 @@
 
 % Table created by stargazer v.5.2.3 by Marek Hlavac, Social Policy Institute. E-mail: marek.hlavac at gmail.com
-% Date and time: Sun, Mar 16, 2025 - 7:54:21 PM
+% Date and time: Sun, Mar 16, 2025 - 8:57:17 PM
 \begin{table}[!htbp] \centering 
-  \caption{GDP növekedési ütem becslése} 
+  \caption{GDP növekedési ütem OLS becslése} 
   \label{} 
-\begin{tabular}{@{\extracolsep{5pt}}lccc} 
+\begin{tabular}{@{\extracolsep{5pt}}lcccc} 
 \\[-1.8ex]\hline 
 \hline \\[-1.8ex] 
- & \multicolumn{3}{c}{\textit{Dependent variable:}} \\ 
-\cline{2-4} 
-\\[-1.8ex] & \multicolumn{3}{c}{GDP\_growth} \\ 
-\\[-1.8ex] & \multicolumn{2}{c}{\textit{OLS}} & \textit{panel} \\ 
- & \multicolumn{2}{c}{\textit{}} & \textit{linear} \\ 
-\\[-1.8ex] & (1) & (2) & (3)\\ 
+ & \multicolumn{4}{c}{\textit{Dependent variable:}} \\ 
+\cline{2-5} 
+\\[-1.8ex] & \multicolumn{4}{c}{GDP\_growth} \\ 
+\\[-1.8ex] & (1) & (2) & (3) & (4)\\ 
 \hline \\[-1.8ex] 
- IndVA\_growth & 0.436$^{***}$ & 0.401$^{***}$ & 0.404$^{***}$ \\ 
-  & (0.007) & (0.007) & (0.007) \\ 
-  & & & \\ 
- infl\_CPI & 0.156$^{***}$ & 0.164$^{***}$ & 0.118$^{***}$ \\ 
-  & (0.007) & (0.007) & (0.007) \\ 
-  & & & \\ 
- unempl & $-$0.021 & $-$0.024 & $-$0.233$^{***}$ \\ 
-  & (0.017) & (0.016) & (0.043) \\ 
-  & & & \\ 
- ifrs\_treat & $-$0.927$^{***}$ & $-$0.537$^{**}$ & $-$1.441$^{***}$ \\ 
-  & (0.194) & (0.211) & (0.256) \\ 
-  & & & \\ 
- Constant & 4.712$^{***}$ & 4.478$^{***}$ &  \\ 
-  & (0.199) & (0.479) &  \\ 
-  & & & \\ 
+ IndVA\_growth & 0.436$^{***}$ & 0.485$^{***}$ & 0.401$^{***}$ & 0.440$^{***}$ \\ 
+  & (0.007) & (0.011) & (0.007) & (0.012) \\ 
+  & & & & \\ 
+ infl\_CPI & 0.156$^{***}$ & 0.396$^{***}$ & 0.164$^{***}$ & 0.438$^{***}$ \\ 
+  & (0.007) & (0.018) & (0.007) & (0.017) \\ 
+  & & & & \\ 
+ unempl & $-$0.021 & $-$0.079$^{***}$ & $-$0.024 & $-$0.089$^{***}$ \\ 
+  & (0.017) & (0.020) & (0.016) & (0.019) \\ 
+  & & & & \\ 
+ ifrs\_treat & $-$0.927$^{***}$ & $-$0.628$^{***}$ & $-$0.537$^{**}$ & $-$0.560$^{***}$ \\ 
+  & (0.194) & (0.155) & (0.211) & (0.167) \\ 
+  & & & & \\ 
+ Constant & 4.712$^{***}$ & 2.725$^{***}$ & 4.478$^{***}$ & 2.322$^{***}$ \\ 
+  & (0.199) & (0.181) & (0.479) & (0.342) \\ 
+  & & & & \\ 
 \hline \\[-1.8ex] 
-Observations & 3,329 & 3,329 & 3,329 \\ 
-R$^{2}$ & 0.658 & 0.688 & 0.599 \\ 
-Adjusted R$^{2}$ & 0.657 & 0.686 & 0.579 \\ 
-Residual Std. Error & 5.488 & 5.252 &  \\ 
-F Statistic & 1,596.249$^{***}$ & 280.651$^{***}$ & 1,185.724$^{***}$ \\ 
+Observations & 3,329 & 729 & 3,329 & 729 \\ 
+R$^{2}$ & 0.658 & 0.871 & 0.688 & 0.898 \\ 
+Adjusted R$^{2}$ & 0.657 & 0.871 & 0.686 & 0.894 \\ 
+Residual Std. Error & 5.488 & 1.989 & 5.252 & 1.797 \\ 
+F Statistic & 1,596.249$^{***}$ & 1,227.124$^{***}$ & 280.651$^{***}$ & 238.369$^{***}$ \\ 
 \hline 
 \hline \\[-1.8ex] 
-\textit{Note:}  & \multicolumn{3}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
+\textit{Note:}  & \multicolumn{4}{r}{$^{*}$p$<$0.1; $^{**}$p$<$0.05; $^{***}$p$<$0.01} \\ 
 \end{tabular} 
 \end{table} 
