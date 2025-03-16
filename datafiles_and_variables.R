@@ -68,7 +68,7 @@ mydatafr <- mydatafr %>%
 
 # treatment dummy
 mydatafr <- mydatafr %>%
-  mutate(irfs_treat = if_else(year >= ifrs_year, 1, 0))
+  mutate(ifrs_treat = if_else(year >= ifrs_year, 1, 0))
 
 # growth rates
 mydatafr <- mydatafr %>%
@@ -77,8 +77,32 @@ mydatafr <- mydatafr %>%
   mutate(GDP_growth = (GDP / lag(GDP))*100 - 100 ) %>%
   mutate(IndVA_growth = (industry_va / lag(industry_va))*100-100 )
 
+
+## ===============================================================
+## ANALYSIS
+## ===============================================================
+library(xtable)
+library(stargazer)
+library(broom)
+
 # regression
-model_1 <- lm(GDP_growth ~ IndVA_growth + infl_CPI + unempl + irfs_treat, data = mydatafr)
+model_1 <- lm(GDP_growth ~ IndVA_growth + infl_CPI + unempl + ifrs_treat, data = mydatafr)
 summary(model_1)
-table_1 <- xtable(summary(model_1))
-print(table_1, type = "latex", file = "regression_table_1.tex")
+
+# LaTeX kimenet xtable package-el
+#table_1 <- xtable(summary(model_1))
+#print(table_1, type = "latex", file = "regression_table_1.tex")
+
+# LaTeX kimenet
+stargazer(model_1, type = "latex", 
+          digits = 3, 
+          title = "OLS Regresszió Eredményei",
+          report = "vc*s",
+          out = "regression_table_1.tex") # Különböző statisztikák: koefficiens, p-érték, std. hiba stb.
+
+# Regressziós eredmény képernyőre blook package-el
+model_1_summary <- tidy(model_1)
+model_1_glance <- glance(model_1)
+print(model_1_summary)
+print(model_1_glance)
+
