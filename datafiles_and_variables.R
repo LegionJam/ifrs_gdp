@@ -5,7 +5,7 @@
 
 # package: readxl, WDI
 library(readxl)
-library("WDI")
+library(WDI)
 
 # Penn World Table DataSet
 #pwt1001 <- read_excel("C:/Users/klari/OneDrive - Corvinus University of Budapest/8_Research/Accounting and Macro/original data files/pwt1001.xlsx", 
@@ -13,7 +13,7 @@ library("WDI")
 
 #IRFS dátumok
 ifrs <- read_excel("C:/Users/klari/OneDrive - Corvinus University of Budapest/8_Research/Accounting and Macro/original data files/ifrs_data.xlsx", 
-                    sheet = "R_input", range = "B1:I169")
+                    sheet = "R_input", range = "B1:D169")
 
 #kausar-park sample
 kausar_park <- read_excel("C:/Users/klari/OneDrive - Corvinus University of Budapest/8_Research/Accounting and Macro/original data files/kausar_park_sample.xlsx",
@@ -26,28 +26,27 @@ wb_data <- WDI(
   indicator = c('GDP' = 'NY.GDP.MKTP.CN',
                 'GOV' = 'NE.CON.GOVT.CN',
                 'infl_CPI' = 'FP.CPI.TOTL.ZG',
-                #'infl_GDPdefl' = 'NY.GDP.DEFL.KD.ZG',
+                'infl_GDPdefl' = 'NY.GDP.DEFL.KD.ZG',  
                 'unempl' = 'SL.UEM.TOTL.ZS',
-                #'export' = 'NE.EXP.GNFS.KD',
-                #'import' = 'NE.IMP.GNFS.KD',
+                'export' = 'NE.EXP.GNFS.KD',  
+                'import' = 'NE.IMP.GNFS.KD',  
                 'industry_va' = 'NV.IND.TOTL.CN',
                 'investment' = 'NE.GDI.FTOT.CN'),
-  start = 1960,
-  end = NULL,
+  start = 2000,
+  end = 2023,
   extra = FALSE,
   cache = NULL,
   latest = NULL,
   language = "en"
 )
+# mentsük el
+save(wb_data, file = "wb_data.RData")
+
 
 ## ===============================================================
 ## DATA MANIPULATION
 ## ===============================================================
 library(tidyverse)
-
-# 1. szűkítjük 2000 utáni évekre
-wb_data <- wb_data %>%
-    filter(year >= 2000)
 
 # átnevezzük az országkódot és eldobjuk a felesleges változókat
 wb_data <- wb_data %>%
@@ -70,39 +69,6 @@ mydatafr <- mydatafr %>%
 mydatafr <- mydatafr %>%
   mutate(ifrs_treat = if_else(year >= ifrs_year, 1, 0))
 
-# growth rates
-mydatafr <- mydatafr %>%
-  arrange(ccode, year) %>%
-  group_by(ccode) %>%
-  mutate(GDP_growth = (GDP / lag(GDP))*100 - 100 ) %>%
-  mutate(IndVA_growth = (industry_va / lag(industry_va))*100-100 )
-
-
-## ===============================================================
-## ANALYSIS
-## ===============================================================
-library(xtable)
-library(stargazer)
-library(broom)
-
-# regression
-model_1 <- lm(GDP_growth ~ IndVA_growth + infl_CPI + unempl + ifrs_treat, data = mydatafr)
-summary(model_1)
-
-# LaTeX kimenet xtable package-el
-#table_1 <- xtable(summary(model_1))
-#print(table_1, type = "latex", file = "regression_table_1.tex")
-
-# LaTeX kimenet
-stargazer(model_1, type = "latex", 
-          digits = 3, 
-          title = "OLS Regresszió Eredményei",
-          report = "vc*s",
-          out = "regression_table_1.tex") # Különböző statisztikák: koefficiens, p-érték, std. hiba stb.
-
-# Regressziós eredmény képernyőre blook package-el
-model_1_summary <- tidy(model_1)
-model_1_glance <- glance(model_1)
-print(model_1_summary)
-print(model_1_glance)
+# elmentjük az adatfilet
+save(mydatafr,file="dataframe_ifrs.Rdata")
 
